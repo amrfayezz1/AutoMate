@@ -1,68 +1,45 @@
 import { Tabs } from 'expo-router';
-import { Ionicons } from '@expo/vector-icons';
-import { useTranslation } from 'react-i18next';
+import { Home, Car, Wrench, Settings } from 'lucide-react-native';
 
-import { useTheme } from '@/lib/ThemeProvider';
-import { FontSizes } from '@/lib/theme';
-
-export default function TabsLayout() {
-  const { t } = useTranslation();
-  const { theme } = useTheme();
-
+export default function TabLayout() {
   return (
     <Tabs
       screenOptions={{
         headerShown: false,
         tabBarStyle: {
-          backgroundColor: theme.surface,
-          borderTopColor: theme.border,
-          borderTopWidth: 1,
-          height: 80,
-          paddingTop: 8,
-          paddingBottom: 24,
+          backgroundColor: '#030712', // bg-background
+          borderTopColor: '#1F2937', // border-muted
         },
-        tabBarActiveTintColor: theme.primary,
-        tabBarInactiveTintColor: theme.textMuted,
-        tabBarLabelStyle: {
-          fontSize: FontSizes.xs,
-          fontWeight: '500',
-        },
+        tabBarActiveTintColor: '#3B82F6', // text-primary
+        tabBarInactiveTintColor: '#9CA3AF', // text-muted-foreground
       }}
     >
       <Tabs.Screen
-        name="home"
+        name="index"
         options={{
-          title: t('home.title'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="home" size={size} color={color} />
-          ),
+          title: 'Home',
+          tabBarIcon: ({ color }) => <Home size={24} color={color} />,
+        }}
+      />
+      <Tabs.Screen
+        name="garage"
+        options={{
+          title: 'My Car',
+          tabBarIcon: ({ color }) => <Car size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="maintenance"
         options={{
-          title: t('maintenance.title'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="construct" size={size} color={color} />
-          ),
-        }}
-      />
-      <Tabs.Screen
-        name="reminders"
-        options={{
-          title: t('reminders.title'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="notifications" size={size} color={color} />
-          ),
+          title: 'Maintenance',
+          tabBarIcon: ({ color }) => <Wrench size={24} color={color} />,
         }}
       />
       <Tabs.Screen
         name="settings"
         options={{
-          title: t('settings.title'),
-          tabBarIcon: ({ color, size }) => (
-            <Ionicons name="settings" size={size} color={color} />
-          ),
+          title: 'Settings',
+          tabBarIcon: ({ color }) => <Settings size={24} color={color} />,
         }}
       />
     </Tabs>

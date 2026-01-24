@@ -1,37 +1,33 @@
 import { useState } from 'react';
 import { View, TextInput, Text, TouchableOpacity, Alert, ActivityIndicator } from 'react-native';
-import { Link, useRouter } from 'expo-router';
+import { Link } from 'expo-router';
 import { supabase } from '../../src/lib/supabase';
-import { useAuthStore } from '../../src/store/authStore';
 
-export default function Login() {
+export default function SignUp() {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
     const [loading, setLoading] = useState(false);
-    const router = useRouter();
-    const initialize = useAuthStore((state) => state.initialize);
 
-    async function signInWithEmail() {
+    async function signUpWithEmail() {
         setLoading(true);
-        const { error } = await supabase.auth.signInWithPassword({
+        const { error } = await supabase.auth.signUp({
             email,
             password,
         });
 
         if (error) {
             Alert.alert(error.message);
-            setLoading(false);
         } else {
-            await initialize();
-            // Router redirection is handled in root _layout
+            Alert.alert('check your inbox for email verification!');
         }
+        setLoading(false);
     }
 
     return (
         <View className="flex-1 bg-background justify-center px-6">
             <View className="mb-10">
-                <Text className="text-4xl font-bold text-primary mb-2">AutoMate</Text>
-                <Text className="text-muted-foreground text-lg">Welcome back</Text>
+                <Text className="text-4xl font-bold text-primary mb-2">Create Account</Text>
+                <Text className="text-muted-foreground text-lg">Start tracking your maintenance</Text>
             </View>
 
             <View className="space-y-4">
@@ -61,21 +57,21 @@ export default function Login() {
 
                 <TouchableOpacity
                     className="bg-primary p-4 rounded-lg items-center mt-4"
-                    onPress={signInWithEmail}
+                    onPress={signUpWithEmail}
                     disabled={loading}
                 >
                     {loading ? (
                         <ActivityIndicator color="white" />
                     ) : (
-                        <Text className="text-primary-foreground font-bold text-lg">Sign In</Text>
+                        <Text className="text-primary-foreground font-bold text-lg">Sign Up</Text>
                     )}
                 </TouchableOpacity>
 
                 <View className="flex-row justify-center mt-6">
-                    <Text className="text-muted-foreground">Don't have an account? </Text>
-                    <Link href="/(auth)/signup" asChild>
+                    <Text className="text-muted-foreground">Already have an account? </Text>
+                    <Link href="/(auth)/login" asChild>
                         <TouchableOpacity>
-                            <Text className="text-primary font-bold">Sign Up</Text>
+                            <Text className="text-primary font-bold">Sign In</Text>
                         </TouchableOpacity>
                     </Link>
                 </View>

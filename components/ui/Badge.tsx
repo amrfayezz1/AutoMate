@@ -1,25 +1,25 @@
-import React from "react";
-import { Text, View } from "react-native";
+import { Text, View } from 'react-native';
 
-type BadgeStatus = "success" | "warning" | "error" | "info";
+type BadgeVariant = 'success' | 'warning' | 'danger' | 'info' | 'neutral';
 
 interface BadgeProps {
-  status: BadgeStatus;
   label: string;
+  variant?: BadgeVariant;
 }
 
-const statusStyles: Record<BadgeStatus, { bg: string; text: string }> = {
-  success: { bg: "bg-emerald-500/20", text: "text-emerald-500" },
-  warning: { bg: "bg-amber-500/20", text: "text-amber-500" },
-  error: { bg: "bg-red-500/20", text: "text-red-500" },
-  info: { bg: "bg-blue-500/20", text: "text-blue-500" },
+const variantStyles: Record<BadgeVariant, { container: string; text: string }> = {
+  success: { container: 'bg-green-900/50', text: 'text-green-400' },
+  warning: { container: 'bg-amber-900/50', text: 'text-amber-400' },
+  danger: { container: 'bg-red-900/50', text: 'text-red-400' },
+  info: { container: 'bg-blue-900/50', text: 'text-blue-400' },
+  neutral: { container: 'bg-slate-700', text: 'text-slate-300' },
 };
 
-export function Badge({ status, label }: BadgeProps) {
-  const styles = statusStyles[status];
+export function Badge({ label, variant = 'neutral' }: BadgeProps) {
+  const { container, text } = variantStyles[variant];
   return (
-    <View className={`rounded px-2 py-1 ${styles.bg}`}>
-      <Text className={`text-xs font-medium ${styles.text}`}>{label}</Text>
+    <View className={`px-2.5 py-0.5 rounded-full self-start ${container}`}>
+      <Text className={`text-xs font-medium ${text}`}>{label}</Text>
     </View>
   );
 }

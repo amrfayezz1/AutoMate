@@ -1,35 +1,26 @@
 export const queryKeys = {
   cars: {
-    all: ["cars"] as const,
-    list: () => [...queryKeys.cars.all, "list"] as const,
-    detail: (id: string) => [...queryKeys.cars.all, "detail", id] as const,
+    all: ['cars'] as const,
+    byId: (id: string) => ['cars', id] as const,
   },
   maintenanceRecords: {
-    all: ["maintenanceRecords"] as const,
-    byCar: (carId: string) =>
-      [...queryKeys.maintenanceRecords.all, carId] as const,
-    detail: (id: string) =>
-      [...queryKeys.maintenanceRecords.all, "detail", id] as const,
+    all: (carId: string) => ['maintenance', carId] as const,
+    byId: (carId: string, id: string) => ['maintenance', carId, id] as const,
   },
   maintenanceTypes: {
-    all: ["maintenanceTypes"] as const,
-    list: () => [...queryKeys.maintenanceTypes.all, "list"] as const,
+    all: ['maintenanceTypes'] as const,
   },
   reminders: {
-    all: ["reminders"] as const,
-    byCar: (carId: string) => [...queryKeys.reminders.all, carId] as const,
-    detail: (id: string) => [...queryKeys.reminders.all, "detail", id] as const,
+    all: (carId: string) => ['reminders', carId] as const,
   },
   documents: {
-    all: ["documents"] as const,
-    byCar: (carId: string) => [...queryKeys.documents.all, carId] as const,
+    all: (carId: string) => ['documents', carId] as const,
+    byId: (carId: string, id: string) => ['documents', carId, id] as const,
   },
-  odometerLogs: {
-    all: ["odometerLogs"] as const,
-    byCar: (carId: string) => [...queryKeys.odometerLogs.all, carId] as const,
+  odometer: {
+    all: (carId: string) => ['odometer', carId] as const,
   },
   profile: {
-    all: ["profile"] as const,
-    detail: () => [...queryKeys.profile.all, "detail"] as const,
+    current: ['profile'] as const,
   },
 } as const;

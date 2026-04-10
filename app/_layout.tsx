@@ -1,45 +1,38 @@
-import "../lib/i18n";
-import "../lib/sentry";
-import React, { useEffect } from "react";
-import { Stack } from "expo-router";
-import { QueryClientProvider } from "@tanstack/react-query";
-import { StatusBar } from "expo-status-bar";
-import { queryClient } from "../lib/queryClient";
-import { supabase } from "../lib/supabase";
-import { useAuthStore } from "../stores/authStore";
-import { initSentry } from "../lib/sentry";
+import '@/global.css';
+import '@/lib/i18n';
 
-initSentry();
+import { QueryClientProvider } from '@tanstack/react-query';
+import { Stack } from 'expo-router';
+import { StatusBar } from 'expo-status-bar';
+import { useEffect } from 'react';
+import { SafeAreaProvider } from 'react-native-safe-area-context';
 
-export default function RootLayout() {
-  const { setSession, setLoading } = useAuthStore();
+import { queryClient } from '@/lib/queryClient';
+import * as Sentry from '@sentry/react-native';
 
-  useEffect(() => {
-    // Restore session on mount
-    supabase.auth.getSession().then(({ data: { session } }) => {
-      setSession(session);
-      setLoading(false);
-    });
+Sentry.init({
+  dsn: process.env.EXPO_PUBLIC_SENTRY_DSN,
+  enabled: true,
+  sendDefaultPii: true,
+  enableLogs: true,
+  replaysSessionSampleRate: 0.1,
+  replaysOnErrorSampleRate: 1,
+  integrations: [Sentry.mobileReplayIntegration()],
+});
 
-    // Listen for auth state changes
-    const {
-      data: { subscription },
-    } = supabase.auth.onAuthStateChange((_event, session) => {
-      setSession(session);
-      setLoading(false);
-    });
-
-    return () => subscription.unsubscribe();
-  }, [setSession, setLoading]);
-
+export default Sentry.wrap(function RootLayout() {
   return (
     <QueryClientProvider client={queryClient}>
-      <StatusBar style="light" />
-      <Stack screenOptions={{ headerShown: false }}>
-        <Stack.Screen name="(auth)" />
-        <Stack.Screen name="(onboarding)" />
-        <Stack.Screen name="(tabs)" />
-      </Stack>
+      <SafeAreaProvider>
+        <StatusBar style="light" />
+        <Stack
+          screenOptions={{
+            headerShown: false,
+            contentStyle: { backgroundColor: '#0F172A' },
+            animation: 'slide_from_right',
+          }}
+        />
+      </SafeAreaProvider>
     </QueryClientProvider>
   );
-}
+});

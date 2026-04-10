@@ -1,59 +1,43 @@
-import React, { useEffect, useRef } from "react";
-import { Animated, Text, View } from "react-native";
+import { useEffect, useRef } from 'react';
+import { Animated, Text, View } from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-type ToastType = "success" | "error" | "info";
+type ToastType = 'success' | 'error' | 'info';
 
 interface ToastProps {
-  visible: boolean;
   message: string;
   type?: ToastType;
-  duration?: number;
+  visible: boolean;
   onHide: () => void;
+  duration?: number;
 }
 
-const typeStyles: Record<ToastType, { bg: string; text: string }> = {
-  success: { bg: "bg-emerald-500", text: "text-white" },
-  error: { bg: "bg-red-500", text: "text-white" },
-  info: { bg: "bg-blue-500", text: "text-white" },
+const typeStyles: Record<ToastType, string> = {
+  success: 'bg-green-800 border-green-600',
+  error: 'bg-red-900 border-red-700',
+  info: 'bg-slate-700 border-slate-600',
 };
 
-export function Toast({
-  visible,
-  message,
-  type = "info",
-  duration = 3000,
-  onHide,
-}: ToastProps) {
-  const opacity = useRef(new Animated.Value(0)).current;
+export function Toast({ message, type = 'info', visible, onHide, duration = 3000 }: ToastProps) {
+  const translateY = useRef(new Animated.Value(-100)).current;
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (visible) {
-      Animated.sequence([
-        Animated.timing(opacity, {
-          toValue: 1,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-        Animated.delay(duration),
-        Animated.timing(opacity, {
-          toValue: 0,
-          duration: 150,
-          useNativeDriver: true,
-        }),
-      ]).start(() => onHide());
+      Animated.spring(translateY, { toValue: 0, useNativeDriver: true }).start();
+      const timer = setTimeout(() => {
+        Animated.timing(translateY, { toValue: -100, duration: 300, useNativeDriver: true }).start(onHide);
+      }, duration);
+      return () => clearTimeout(timer);
     }
-  }, [visible, duration, opacity, onHide]);
-
-  if (!visible) return null;
-
-  const styles = typeStyles[type];
+  }, [visible]);
 
   return (
     <Animated.View
-      style={{ opacity }}
-      className={`absolute bottom-24 left-4 right-4 z-50 rounded-lg px-4 py-3 ${styles.bg}`}
+      style={[{ transform: [{ translateY }], top: insets.top + 12 }]}
+      className={`absolute left-4 right-4 z-50 border rounded-xl px-4 py-3 ${typeStyles[type]}`}
     >
-      <Text className={`text-sm font-medium ${styles.text}`}>{message}</Text>
+      <Text className="text-white text-sm font-medium">{message}</Text>
     </Animated.View>
   );
 }

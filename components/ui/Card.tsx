@@ -1,17 +1,33 @@
-import React from "react";
-import { View, ViewProps } from "react-native";
+import { Pressable, PressableProps, View, ViewProps } from 'react-native';
 
 interface CardProps extends ViewProps {
   children: React.ReactNode;
+  elevated?: boolean;
 }
 
-export function Card({ children, className, ...props }: CardProps) {
+interface PressableCardProps extends PressableProps {
+  children: React.ReactNode;
+  elevated?: boolean;
+}
+
+export function Card({ children, elevated = false, className = '', ...props }: CardProps) {
   return (
     <View
+      className={`rounded-2xl p-4 ${elevated ? 'bg-surface-elevated' : 'bg-surface'} ${className}`}
       {...props}
-      className={`rounded-xl border border-slate-600 bg-slate-800 p-4 ${className ?? ""}`}
     >
       {children}
     </View>
+  );
+}
+
+export function PressableCard({ children, elevated = false, className = '', ...props }: PressableCardProps) {
+  return (
+    <Pressable
+      className={`rounded-2xl p-4 active:opacity-80 ${elevated ? 'bg-surface-elevated' : 'bg-surface'} ${className}`}
+      {...props}
+    >
+      {children}
+    </Pressable>
   );
 }

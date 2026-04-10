@@ -3,19 +3,20 @@
     "name": "AutoMate",
     "slug": "automate",
     "version": "1.0.0",
+    "scheme": "automate",
     "orientation": "portrait",
     "icon": "./assets/icon.png",
-    "userInterfaceStyle": "dark",
+    "userInterfaceStyle": "automatic",
+    "newArchEnabled": true,
     "splash": {
       "image": "./assets/splash.png",
       "resizeMode": "contain",
       "backgroundColor": "#0F172A"
     },
-    "assetBundlePatterns": ["**/*"],
     "ios": {
       "supportsTablet": false,
       "bundleIdentifier": "com.automate.app",
-      "buildNumber": "1"
+      "associatedDomains": []
     },
     "android": {
       "adaptiveIcon": {
@@ -23,21 +24,34 @@
         "backgroundColor": "#0F172A"
       },
       "package": "com.automate.app",
-      "versionCode": 1
+      "permissions": [
+        "NOTIFICATIONS",
+        "RECEIVE_BOOT_COMPLETED",
+        "VIBRATE"
+      ]
     },
     "web": {
-      "favicon": "./assets/favicon.png"
+      "bundler": "metro"
     },
-    "scheme": "automate",
     "plugins": [
       "expo-router",
+      "expo-notifications",
       [
-        "expo-notifications",
+        "expo-image-picker",
         {
-          "icon": "./assets/notification-icon.png",
-          "color": "#FBBF24"
+          "photosPermission": "AutoMate needs access to your photos to upload car documents."
         }
-      ]
+      ],
+      [
+        "@sentry/react-native/expo",
+        {
+          "url": "https://sentry.io/",
+          "project": "react-native",
+          "organization": "automate-vl"
+        }
+      ],
+      "@sentry/react-native",
+      "expo-localization"
     ],
     "experiments": {
       "typedRoutes": true

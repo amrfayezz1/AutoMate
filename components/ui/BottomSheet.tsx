@@ -1,90 +1,69 @@
-import React, { useEffect, useRef } from "react";
+import { useEffect, useRef } from 'react';
 import {
-  Modal,
-  View,
-  Text,
-  Pressable,
   Animated,
   Dimensions,
-  KeyboardAvoidingView,
-  Platform,
-  ScrollView,
-} from "react-native";
+  Modal,
+  Pressable,
+  Text,
+  View,
+} from 'react-native';
+import { useSafeAreaInsets } from 'react-native-safe-area-context';
 
-const { height: SCREEN_HEIGHT } = Dimensions.get("window");
+const { height: SCREEN_HEIGHT } = Dimensions.get('window');
 
 interface BottomSheetProps {
   visible: boolean;
-  title?: string;
   onClose: () => void;
+  title?: string;
   children: React.ReactNode;
   snapHeight?: number;
 }
 
-export function BottomSheet({
-  visible,
-  title,
-  onClose,
-  children,
-  snapHeight,
-}: BottomSheetProps) {
-  const translateY = useRef(new Animated.Value(SCREEN_HEIGHT)).current;
+export function BottomSheet({ visible, onClose, title, children, snapHeight = SCREEN_HEIGHT * 0.5 }: BottomSheetProps) {
+  const translateY = useRef(new Animated.Value(snapHeight)).current;
+  const insets = useSafeAreaInsets();
 
   useEffect(() => {
     if (visible) {
-      Animated.timing(translateY, {
+      Animated.spring(translateY, {
         toValue: 0,
-        duration: 200,
         useNativeDriver: true,
+        damping: 20,
+        stiffness: 200,
       }).start();
     } else {
       Animated.timing(translateY, {
-        toValue: SCREEN_HEIGHT,
-        duration: 200,
+        toValue: snapHeight,
+        duration: 250,
         useNativeDriver: true,
       }).start();
     }
-  }, [visible, translateY]);
+  }, [visible, snapHeight, translateY]);
 
   return (
-    <Modal
-      visible={visible}
-      transparent
-      animationType="none"
-      onRequestClose={onClose}
-    >
-      <Pressable className="flex-1 bg-black/60" onPress={onClose} />
-      <KeyboardAvoidingView
-        behavior={Platform.OS === "ios" ? "padding" : undefined}
-        className="absolute bottom-0 left-0 right-0"
-      >
+    <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
+      <View className="flex-1">
+        <Pressable className="flex-1 bg-black/60" onPress={onClose} />
         <Animated.View
-          style={[
-            { transform: [{ translateY }] },
-            snapHeight
-              ? { height: snapHeight }
-              : { maxHeight: SCREEN_HEIGHT * 0.85 },
-          ]}
-          className="rounded-t-2xl bg-slate-800 pb-8"
+          style={[{ transform: [{ translateY }], height: snapHeight }]}
+          className="absolute bottom-0 left-0 right-0 bg-surface rounded-t-3xl"
         >
-          {/* Drag handle */}
-          <View className="items-center pt-3 pb-2">
-            <View className="h-1 w-10 rounded-full bg-slate-600" />
+          <View className="items-center pt-3 pb-1">
+            <View className="w-10 h-1 rounded-full bg-slate-600" />
           </View>
-          {title ? (
-            <View className="border-b border-slate-600 px-6 pb-4">
-              <Text className="text-xl font-bold text-slate-100">{title}</Text>
+          {title && (
+            <View className="flex-row items-center justify-between px-5 py-3 border-b border-slate-800">
+              <Text className="text-white text-lg font-semibold">{title}</Text>
+              <Pressable onPress={onClose} className="p-1">
+                <Text className="text-slate-400 text-base">✕</Text>
+              </Pressable>
             </View>
-          ) : null}
-          <ScrollView
-            className="px-6 pt-4"
-            keyboardShouldPersistTaps="handled"
-            showsVerticalScrollIndicator={false}
-          >
+          )}
+          <View style={{ paddingBottom: insets.bottom }} className="flex-1">
             {children}
-          </ScrollView>
+          </View>
         </Animated.View>
-      </KeyboardAvoidingView>
+      </View>
     </Modal>
   );
 }

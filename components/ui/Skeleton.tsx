@@ -1,51 +1,39 @@
-import React, { useEffect, useRef } from "react";
-import { View, Animated } from "react-native";
+import { useEffect, useRef } from 'react';
+import { Animated, View, ViewProps } from 'react-native';
 
-interface SkeletonProps {
+interface SkeletonProps extends ViewProps {
   width?: number | `${number}%`;
   height?: number;
-  className?: string;
+  rounded?: boolean;
 }
 
-export function Skeleton({ width, height = 16, className }: SkeletonProps) {
-  const shimmer = useRef(new Animated.Value(0)).current;
+export function Skeleton({ width, height = 16, rounded = false, className = '', style, ...props }: SkeletonProps) {
+  const opacity = useRef(new Animated.Value(0.4)).current;
 
   useEffect(() => {
     Animated.loop(
       Animated.sequence([
-        Animated.timing(shimmer, {
-          toValue: 1,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-        Animated.timing(shimmer, {
-          toValue: 0,
-          duration: 1000,
-          useNativeDriver: true,
-        }),
-      ]),
+        Animated.timing(opacity, { toValue: 1, duration: 800, useNativeDriver: true }),
+        Animated.timing(opacity, { toValue: 0.4, duration: 800, useNativeDriver: true }),
+      ])
     ).start();
-  }, [shimmer]);
-
-  const opacity = shimmer.interpolate({
-    inputRange: [0, 1],
-    outputRange: [0.4, 0.8],
-  });
+  }, [opacity]);
 
   return (
     <Animated.View
-      style={[{ opacity, height, width: width as number | string | undefined }]}
-      className={`rounded-lg bg-slate-700 ${className ?? ""}`}
+      style={[{ opacity, width, height }, style]}
+      className={`bg-slate-700 ${rounded ? 'rounded-full' : 'rounded-lg'} ${className}`}
+      {...props}
     />
   );
 }
 
 export function SkeletonCard() {
   return (
-    <View className="rounded-xl border border-slate-600 bg-slate-800 p-4">
-      <Skeleton height={18} className="mb-3 w-full" />
-      <Skeleton height={14} width="70%" className="mb-2" />
-      <Skeleton height={14} width="50%" />
+    <View className="bg-surface rounded-2xl p-4 gap-3">
+      <Skeleton width="60%" height={16} />
+      <Skeleton width="100%" height={12} />
+      <Skeleton width="80%" height={12} />
     </View>
   );
 }

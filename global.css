@@ -1,3 +1,62 @@
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
+
+@layer base {
+  :root {
+    /* Surfaces */
+    --am-surface-0:   #0F1115;
+    --am-surface-1:   #16191F;
+    --am-surface-2:   #1A1D24;
+    --am-surface-3:   #22262F;
+    --am-surface-4:   #2A2F3A;
+    --am-surface-nav: rgba(34, 38, 47, 0.9);
+
+    /* Brand */
+    --am-brand:    #3A86FF;
+    --am-brand-30: rgba(58, 134, 255, 0.30);
+    --am-brand-20: rgba(58, 134, 255, 0.20);
+
+    /* Warn */
+    --am-warn:    #FF9F1C;
+    --am-warn-30: rgba(255, 159, 28, 0.30);
+    --am-warn-20: rgba(255, 159, 28, 0.20);
+
+    /* Danger */
+    --am-danger:    #E63946;
+    --am-danger-30: rgba(230, 57, 70, 0.30);
+    --am-danger-20: rgba(230, 57, 70, 0.20);
+
+    /* Success */
+    --am-success:    #2EC4B6;
+    --am-success-30: rgba(46, 196, 182, 0.30);
+    --am-success-20: rgba(46, 196, 182, 0.20);
+
+    /* Info */
+    --am-info: #00D4FF;
+
+    /* Foreground */
+    --am-fg-1:        #E6E8EC;
+    --am-fg-2:        #A1A7B3;
+    --am-fg-3:        #B0B6C3;
+    --am-fg-muted:    #6B7280;
+    --am-fg-on-brand: #FFFFFF;
+
+    /* Semantic aliases */
+    --color-bg:          var(--am-surface-0);
+    --color-card:        var(--am-surface-2);
+    --color-input:       var(--am-surface-1);
+    --color-sheet:       var(--am-surface-3);
+    --color-chip:        var(--am-surface-4);
+    --color-text:        var(--am-fg-1);
+    --color-text-sub:    var(--am-fg-2);
+    --color-text-faint:  var(--am-fg-muted);
+    --color-primary:     var(--am-brand);
+    --color-warn:        var(--am-warn);
+    --color-danger:      var(--am-danger);
+    --color-success:     var(--am-success);
+
+    /* Motion */
+    --ease-sheet: cubic-bezier(0.32, 0.72, 0, 1);
+  }
+}

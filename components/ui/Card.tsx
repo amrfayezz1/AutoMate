@@ -2,6 +2,7 @@ import { Pressable, PressableProps, View, ViewProps } from 'react-native';
 
 interface CardProps extends ViewProps {
   children: React.ReactNode;
+  /** surface-2 (default) → surface-3 (elevated) */
   elevated?: boolean;
 }
 
@@ -13,7 +14,7 @@ interface PressableCardProps extends PressableProps {
 export function Card({ children, elevated = false, className = '', ...props }: CardProps) {
   return (
     <View
-      className={`rounded-2xl p-4 ${elevated ? 'bg-surface-elevated' : 'bg-surface'} ${className}`}
+      className={`rounded-card p-4 ${elevated ? 'bg-surface-3' : 'bg-surface-2'} ${className}`}
       {...props}
     >
       {children}
@@ -24,7 +25,7 @@ export function Card({ children, elevated = false, className = '', ...props }: C
 export function PressableCard({ children, elevated = false, className = '', ...props }: PressableCardProps) {
   return (
     <Pressable
-      className={`rounded-2xl p-4 active:opacity-80 ${elevated ? 'bg-surface-elevated' : 'bg-surface'} ${className}`}
+      className={`rounded-card p-4 active:opacity-95 ${elevated ? 'bg-surface-3' : 'bg-surface-2'} ${className}`}
       {...props}
     >
       {children}

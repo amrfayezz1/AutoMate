@@ -1,0 +1,20 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>body{margin:0;padding:24px;background:var(--color-bg);font-family:Montserrat;color:#E6E8EC;display:flex;justify-content:center;align-items:center}
+.nav{width:369px;height:67px;border-radius:9999px;background:rgba(34,38,47,.9);box-shadow:0 0 15px rgba(0,0,0,.05);display:flex;justify-content:space-between;padding:12px 24px;align-items:center;backdrop-filter:blur(20px)}
+.tab{display:flex;flex-direction:column;align-items:center;gap:4px;width:50px}
+.tab svg{width:24px;height:24px;color:#6B7280;stroke-width:1.8}
+.tab.on svg{color:#3A86FF;fill:#3A86FF}
+.tab span{font-size:12px;font-weight:500;color:#A1A7B3;line-height:1}
+.tab.on span{color:#E6E8EC}
+</style></head>
+<body>
+<div class="nav">
+  <div class="tab on"><i data-lucide="house"></i><span>Home</span></div>
+  <div class="tab"><i data-lucide="route"></i><span>Maintenance</span></div>
+  <div class="tab"><i data-lucide="calendar"></i><span>Reminders</span></div>
+  <div class="tab"><i data-lucide="settings"></i><span>Settings</span></div>
+</div>
+<script>lucide.createIcons()</script>
+</body></html>

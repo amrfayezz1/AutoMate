@@ -14,16 +14,28 @@ interface ButtonProps {
 }
 
 const variantStyles: Record<Variant, { container: string; text: string }> = {
-  primary: { container: 'bg-primary-500 active:bg-primary-600', text: 'text-white font-semibold' },
-  secondary: { container: 'bg-surface-elevated active:bg-slate-600', text: 'text-white font-semibold' },
-  danger: { container: 'bg-danger active:bg-red-600', text: 'text-white font-semibold' },
-  ghost: { container: 'bg-transparent active:bg-slate-800', text: 'text-primary-500 font-semibold' },
+  primary: {
+    container: 'bg-brand active:opacity-95',
+    text:      'text-fg-on-brand font-medium',
+  },
+  secondary: {
+    container: 'bg-surface-3 active:opacity-95',
+    text:      'text-fg-1 font-medium',
+  },
+  danger: {
+    container: 'bg-danger active:opacity-95',
+    text:      'text-fg-on-brand font-medium',
+  },
+  ghost: {
+    container: 'bg-transparent active:opacity-95',
+    text:      'text-brand font-medium',
+  },
 };
 
 const sizeStyles: Record<Size, { container: string; text: string }> = {
-  sm: { container: 'px-3 py-1.5 rounded-lg', text: 'text-sm' },
-  md: { container: 'px-4 py-3 rounded-xl', text: 'text-base' },
-  lg: { container: 'px-6 py-4 rounded-2xl', text: 'text-lg' },
+  sm: { container: 'px-3 py-2 rounded-card',   text: 'text-sm' },
+  md: { container: 'px-4 py-3 rounded-card',   text: 'text-base' },
+  lg: { container: 'px-6 py-4 rounded-card',   text: 'text-lg' },
 };
 
 export function Button({
@@ -45,8 +57,8 @@ export function Button({
       disabled={isDisabled}
       className={`items-center justify-center flex-row gap-2 ${vContainer} ${sContainer} ${fullWidth ? 'w-full' : ''} ${isDisabled ? 'opacity-50' : ''}`}
     >
-      {loading && <ActivityIndicator size="small" color="white" />}
-      <Text className={`${vText} ${sText}`}>{label}</Text>
+      {loading && <ActivityIndicator size="small" color="#FFFFFF" />}
+      <Text className={`font-sans ${vText} ${sText}`}>{label}</Text>
     </Pressable>
   );
 }

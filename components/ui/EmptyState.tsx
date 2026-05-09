@@ -11,13 +11,13 @@ interface EmptyStateProps {
 export function EmptyState({ title, description, actionLabel, onAction }: EmptyStateProps) {
   return (
     <View className="flex-1 items-center justify-center px-8 py-12 gap-4">
-      <View className="w-16 h-16 rounded-full bg-surface-elevated items-center justify-center">
+      <View className="w-16 h-16 rounded-pill bg-surface-4 items-center justify-center">
         <Text className="text-3xl">🚗</Text>
       </View>
       <View className="items-center gap-1">
-        <Text className="text-white text-lg font-semibold text-center">{title}</Text>
+        <Text className="text-fg-1 text-lg font-medium font-sans text-center">{title}</Text>
         {description && (
-          <Text className="text-slate-400 text-sm text-center">{description}</Text>
+          <Text className="text-fg-2 text-sm font-sans text-center">{description}</Text>
         )}
       </View>
       {actionLabel && onAction && (

@@ -25,16 +25,16 @@ export function BottomSheet({ visible, onClose, title, children, snapHeight = SC
 
   useEffect(() => {
     if (visible) {
-      Animated.spring(translateY, {
+      // iOS sheet slide-up: 220ms, design system easing
+      Animated.timing(translateY, {
         toValue: 0,
+        duration: 220,
         useNativeDriver: true,
-        damping: 20,
-        stiffness: 200,
       }).start();
     } else {
       Animated.timing(translateY, {
         toValue: snapHeight,
-        duration: 250,
+        duration: 220,
         useNativeDriver: true,
       }).start();
     }
@@ -43,22 +43,26 @@ export function BottomSheet({ visible, onClose, title, children, snapHeight = SC
   return (
     <Modal visible={visible} transparent animationType="none" onRequestClose={onClose}>
       <View className="flex-1">
-        <Pressable className="flex-1 bg-black/60" onPress={onClose} />
+        {/* Modal scrim: rgba(0,0,0,0.5) per design system */}
+        <Pressable className="flex-1 bg-black/50" onPress={onClose} />
         <Animated.View
           style={[{ transform: [{ translateY }], height: snapHeight }]}
-          className="absolute bottom-0 left-0 right-0 bg-surface rounded-t-3xl"
+          className="absolute bottom-0 left-0 right-0 bg-surface-3 rounded-t-sheet"
         >
+          {/* Drag handle */}
           <View className="items-center pt-3 pb-1">
-            <View className="w-10 h-1 rounded-full bg-slate-600" />
+            <View className="w-10 h-1 rounded-pill bg-surface-4" />
           </View>
+
           {title && (
-            <View className="flex-row items-center justify-between px-5 py-3 border-b border-slate-800">
-              <Text className="text-white text-lg font-semibold">{title}</Text>
-              <Pressable onPress={onClose} className="p-1">
-                <Text className="text-slate-400 text-base">✕</Text>
+            <View className="flex-row items-center justify-between px-5 py-3 border-b border-surface-4">
+              <Text className="text-fg-1 text-lg font-medium font-sans">{title}</Text>
+              <Pressable onPress={onClose} className="p-1 active:opacity-95">
+                <Text className="text-fg-2 text-base">✕</Text>
               </Pressable>
             </View>
           )}
+
           <View style={{ paddingBottom: insets.bottom }} className="flex-1">
             {children}
           </View>

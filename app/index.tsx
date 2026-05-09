@@ -1,6 +1,12 @@
-import { Redirect } from 'expo-router';
+import { Redirect } from "expo-router";
 
-// Root index redirects to auth — auth gate in Phase 1 will handle session check
+import { SplashScreen } from "@/components/auth/SplashScreen";
+import { useAuthStore } from "@/lib/stores/authStore";
+
 export default function Index() {
-  return <Redirect href="/(auth)/login" />;
+  const status = useAuthStore((s) => s.status);
+
+  if (status === "loading") return <SplashScreen />;
+  if (status === "authenticated") return <Redirect href="/(tabs)/" />;
+  return <Redirect href="/(auth)/welcome" />;
 }

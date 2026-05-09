@@ -1,0 +1,29 @@
+<!doctype html><html><head><meta charset="utf-8">
+<link rel="stylesheet" href="../colors_and_type.css">
+<script src="https://unpkg.com/lucide@latest/dist/umd/lucide.min.js"></script>
+<style>body{margin:0;padding:24px;background:var(--color-bg);font-family:Montserrat;color:#E6E8EC;display:grid;grid-template-columns:repeat(6,1fr);gap:12px}
+.cell{display:flex;flex-direction:column;align-items:center;gap:6px}
+.tile{width:48px;height:48px;border-radius:9999px;display:grid;place-items:center}
+.tile svg{width:24px;height:24px;stroke-width:2.25}
+.brand{background:rgba(58,134,255,.30);color:#3A86FF}
+.warn{background:rgba(255,159,28,.30);color:#FF9F1C}
+.danger{background:rgba(230,57,70,.30);color:#E63946}
+.success{background:rgba(46,196,182,.30);color:#2EC4B6}
+.neutral{background:#2A2F3A;color:#B0B6C3}
+.lab{font-size:10px;color:#A1A7B3;font-family:ui-monospace,Menlo,monospace;text-align:center}
+</style></head>
+<body>
+<div class="cell"><div class="tile brand"><i data-lucide="house"></i></div><div class="lab">house</div></div>
+<div class="cell"><div class="tile brand"><i data-lucide="route"></i></div><div class="lab">route</div></div>
+<div class="cell"><div class="tile brand"><i data-lucide="calendar"></i></div><div class="lab">calendar</div></div>
+<div class="cell"><div class="tile brand"><i data-lucide="settings"></i></div><div class="lab">settings</div></div>
+<div class="cell"><div class="tile brand"><i data-lucide="gauge"></i></div><div class="lab">gauge</div></div>
+<div class="cell"><div class="tile brand"><i data-lucide="wrench"></i></div><div class="lab">wrench</div></div>
+<div class="cell"><div class="tile warn"><i data-lucide="bell"></i></div><div class="lab">bell · warn</div></div>
+<div class="cell"><div class="tile warn"><i data-lucide="alert-triangle"></i></div><div class="lab">alert</div></div>
+<div class="cell"><div class="tile danger"><i data-lucide="trash-2"></i></div><div class="lab">trash-2</div></div>
+<div class="cell"><div class="tile success"><i data-lucide="check"></i></div><div class="lab">check · ok</div></div>
+<div class="cell"><div class="tile neutral"><i data-lucide="pencil"></i></div><div class="lab">pencil</div></div>
+<div class="cell"><div class="tile neutral"><i data-lucide="arrow-down-up"></i></div><div class="lab">sort</div></div>
+<script>lucide.createIcons()</script>
+</body></html>

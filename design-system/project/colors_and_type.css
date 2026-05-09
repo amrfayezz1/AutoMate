@@ -1,0 +1,129 @@
+/* AutoMate Design System — colors & type tokens
+ * Single source of truth. Cards in /preview, the UI kit, and the SKILL.md
+ * reference these names — never hardcoded hex values.
+ */
+
+/* ── Webfont ──────────────────────────────────────────────────────────────
+ * Source design uses Montserrat 400/500. Loaded from Google Fonts so the
+ * project stays portable; for offline use, drop .woff2 files in /fonts and
+ * swap the @font-face below.
+ */
+@import url("https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600&display=swap");
+
+:root {
+  /* ── Raw color scale ───────────────────────────────────────────────── */
+
+  /* Surface (deep → light, ~3% steps) */
+  --am-surface-0:  #0F1115;   /* page background */
+  --am-surface-1:  #16191F;   /* input fields, inactive tab */
+  --am-surface-2:  #1A1D24;   /* card */
+  --am-surface-3:  #22262F;   /* sheet / modal / nav bar fill */
+  --am-surface-4:  #2A2F3A;   /* chip on card, icon backplate (neutral) */
+  --am-surface-nav: rgba(34,38,47,0.9); /* floating nav bar */
+  --am-scrim:      rgba(0,0,0,0.5);     /* modal scrim */
+
+  /* Brand */
+  --am-brand:      #3A86FF;   /* primary accent — buttons, active states */
+  --am-brand-30:   rgba(58,134,255,0.30); /* icon backplate */
+  --am-brand-20:   rgba(58,134,255,0.20); /* selected card fill */
+
+  /* Status */
+  --am-warn:       #FF9F1C;
+  --am-warn-30:    rgba(255,159,28,0.30);
+  --am-warn-20:    rgba(255,159,28,0.20);
+
+  --am-danger:     #E63946;
+  --am-danger-30:  rgba(230,57,70,0.30);
+  --am-danger-20:  rgba(230,57,70,0.20);
+
+  --am-success:    #2EC4B6;
+  --am-success-30: rgba(46,196,182,0.30);
+  --am-success-20: rgba(46,196,182,0.20);
+
+  --am-info:       #00D4FF;   /* rarely used (1× in source) */
+
+  /* Text & stroke greys */
+  --am-fg-1:       #E6E8EC;   /* primary text — headings, values */
+  --am-fg-2:       #A1A7B3;   /* secondary text — labels, captions */
+  --am-fg-3:       #B0B6C3;   /* icon strokes, subtle dividers */
+  --am-fg-muted:   #6B7280;   /* placeholder, disabled */
+  --am-fg-on-brand:#FFFFFF;   /* white text on the blue CTA */
+
+  --am-shadow-nav: 0 0 15px rgba(0,0,0,0.05);
+
+  /* ── Semantic aliases (use these in components) ───────────────────── */
+  --color-bg:           var(--am-surface-0);
+  --color-card:         var(--am-surface-2);
+  --color-input:        var(--am-surface-1);
+  --color-sheet:        var(--am-surface-3);
+  --color-chip:         var(--am-surface-4);
+
+  --color-text:         var(--am-fg-1);
+  --color-text-muted:   var(--am-fg-2);
+  --color-text-faint:   var(--am-fg-muted);
+
+  --color-primary:      var(--am-brand);
+  --color-primary-fg:   var(--am-fg-on-brand);
+
+  --color-warn:         var(--am-warn);
+  --color-danger:       var(--am-danger);
+  --color-success:      var(--am-success);
+
+  /* ── Type ramp (px) ───────────────────────────────────────────────── */
+  --t-12: 12px;   /* caption / nav label */
+  --t-14: 14px;   /* form label, secondary text */
+  --t-16: 16px;   /* body, default button */
+  --t-18: 18px;   /* card heading, section title */
+  --t-20: 20px;   /* screen title */
+  --t-24: 24px;   /* hero number (monthly total) */
+
+  --lh-tight:  1.0;     /* nav labels */
+  --lh-snug:   1.25;    /* small labels */
+  --lh-normal: 1.5;     /* body */
+
+  /* ── Spacing (px, 8-grid + half-steps) ───────────────────────────── */
+  --sp-1:  4px;
+  --sp-2:  8px;
+  --sp-3:  12px;
+  --sp-4:  16px;
+  --sp-5:  20px;
+  --sp-6:  24px;
+  --sp-8:  32px;
+
+  /* ── Radii ───────────────────────────────────────────────────────── */
+  --r-card:  16px;
+  --r-sheet: 24px;
+  --r-pill:  9999px;
+
+  /* ── Font ────────────────────────────────────────────────────────── */
+  --font-family: "Montserrat", -apple-system, BlinkMacSystemFont, "Segoe UI",
+                  Roboto, sans-serif;
+}
+
+/* ── Base typography ──────────────────────────────────────────────── */
+
+html, body {
+  font-family: var(--font-family);
+  font-weight: 400;
+  font-size: var(--t-16);
+  line-height: var(--lh-normal);
+  color: var(--color-text);
+  background: var(--color-bg);
+  -webkit-font-smoothing: antialiased;
+}
+
+/* In AutoMate, "headings" are screen titles and card headers — not the
+ * h1/h2 hierarchy of a webpage. Mapped here for completeness; the kit uses
+ * .am-* utility classes more often. */
+h1, .am-screen-title { font-size: var(--t-20); font-weight: 500; line-height: 30px; color: var(--am-fg-1); margin: 0; }
+h2, .am-section      { font-size: var(--t-18); font-weight: 500; line-height: 27px; color: var(--am-fg-1); margin: 0; }
+h3, .am-card-title   { font-size: var(--t-16); font-weight: 500; line-height: 24px; color: var(--am-fg-1); margin: 0; }
+
+p, .am-body          { font-size: var(--t-16); font-weight: 400; line-height: 24px; color: var(--am-fg-1); margin: 0; }
+small, .am-caption   { font-size: var(--t-12); font-weight: 400; line-height: 16px; color: var(--am-fg-2); }
+
+.am-label            { font-size: var(--t-14); font-weight: 500; line-height: 20px; color: var(--am-fg-2); }
+.am-value-hero       { font-size: var(--t-24); font-weight: 400; line-height: 32px; color: var(--am-fg-1); }
+.am-mono-num         { font-feature-settings: "tnum" 1, "lnum" 1; }
+.am-nav-label        { font-size: var(--t-12); font-weight: 500; line-height: 1; }
+.am-button-text      { font-size: var(--t-16); font-weight: 500; line-height: 24px; }

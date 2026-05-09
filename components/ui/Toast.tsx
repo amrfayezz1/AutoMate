@@ -1,6 +1,7 @@
 import { useEffect, useRef } from 'react';
 import { Animated, Text, View } from 'react-native';
 import { useSafeAreaInsets } from 'react-native-safe-area-context';
+import { Check, AlertCircle, Info, Trash2, type LucideIcon } from 'lucide-react-native';
 
 type ToastType = 'success' | 'error' | 'info';
 
@@ -12,21 +13,34 @@ interface ToastProps {
   duration?: number;
 }
 
+const iconMap: Record<ToastType, LucideIcon> = {
+  success: Trash2,
+  error: AlertCircle,
+  info: Info,
+};
+
 const typeStyles: Record<ToastType, string> = {
-  success: 'bg-green-800 border-green-600',
-  error: 'bg-red-900 border-red-700',
-  info: 'bg-slate-700 border-slate-600',
+  success: 'bg-black/91 rounded-pill px-4 py-3',
+  error: 'bg-danger-20 border border-danger rounded-card px-4 py-3',
+  info: 'bg-brand-20 border border-brand rounded-card px-4 py-3',
+};
+
+const textStyles: Record<ToastType, string> = {
+  success: 'text-success',
+  error: 'text-danger',
+  info: 'text-brand',
 };
 
 export function Toast({ message, type = 'info', visible, onHide, duration = 3000 }: ToastProps) {
   const translateY = useRef(new Animated.Value(-100)).current;
   const insets = useSafeAreaInsets();
+  const Icon = iconMap[type];
 
   useEffect(() => {
     if (visible) {
-      Animated.spring(translateY, { toValue: 0, useNativeDriver: true }).start();
+      Animated.timing(translateY, { toValue: 0, duration: 220, useNativeDriver: true }).start();
       const timer = setTimeout(() => {
-        Animated.timing(translateY, { toValue: -100, duration: 300, useNativeDriver: true }).start(onHide);
+        Animated.timing(translateY, { toValue: -100, duration: 220, useNativeDriver: true }).start(onHide);
       }, duration);
       return () => clearTimeout(timer);
     }
@@ -35,9 +49,10 @@ export function Toast({ message, type = 'info', visible, onHide, duration = 3000
   return (
     <Animated.View
       style={[{ transform: [{ translateY }], top: insets.top + 12 }]}
-      className={`absolute left-4 right-4 z-50 border rounded-xl px-4 py-3 ${typeStyles[type]}`}
+      className={`absolute left-4 right-4 z-50 flex-row items-center gap-1 ${typeStyles[type]}`}
     >
-      <Text className="text-white text-sm font-medium">{message}</Text>
+      <Icon size={16} strokeWidth={2.25} color={type === 'success' ? '#2EC4B6' : undefined} />
+      <Text className={`text-sm font-medium font-sans ${textStyles[type]}`}>{message}</Text>
     </Animated.View>
   );
 }

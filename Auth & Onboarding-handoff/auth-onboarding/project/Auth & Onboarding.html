@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8" />
+<title>AutoMate · Auth & Onboarding</title>
+<meta name="viewport" content="width=device-width,initial-scale=1" />
+<link rel="preconnect" href="https://fonts.googleapis.com" />
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+<link href="https://fonts.googleapis.com/css2?family=Montserrat:wght@400;500;600;700&display=swap" rel="stylesheet" />
+<style>
+  :root{
+    --bg:        rgb(15,17,21);
+    --bg-2:      rgb(22,25,31);
+    --surface:   rgb(26,29,36);
+    --surface-2: rgb(34,38,47);
+    --surface-3: rgb(42,47,58);
+    --line:      rgba(176,182,195,0.10);
+    --text:      rgb(230,232,236);
+    --text-2:    rgb(161,167,179);
+    --text-3:    rgb(107,114,128);
+    --primary:   rgb(58,134,255);
+    --primary-30:rgba(58,134,255,0.30);
+    --primary-15:rgba(58,134,255,0.15);
+    --warn:      rgb(255,159,28);
+    --teal:      rgb(46,196,182);
+    --danger:    rgb(230,57,70);
+  }
+  *{box-sizing:border-box}
+  html,body{margin:0;background:#0a0b0e;color:var(--text);font-family:Montserrat,system-ui,sans-serif;}
+  body{min-height:100vh;}
+</style>
+</head>
+<body>
+
+<script src="https://unpkg.com/react@18.3.1/umd/react.development.js" integrity="sha384-hD6/rw4ppMLGNu3tX5cjIb+uRZ7UkRJ6BPkLpg4hAu/6onKUg4lLsHAs9EBPT82L" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/react-dom@18.3.1/umd/react-dom.development.js" integrity="sha384-u6aeetuaXnQ38mYT8rp6sbXaQe3NL9t+IBXmnYxwkUI2Hw4bsp2Wvmx4yRQF1uAm" crossorigin="anonymous"></script>
+<script src="https://unpkg.com/@babel/standalone@7.29.0/babel.min.js" integrity="sha384-m08KidiNqLdpJqLq95G/LEi8Qvjl/xUYll3QILypMoQ65QorJ9Lvtp2RXYGBFj1y" crossorigin="anonymous"></script>
+
+<script type="text/babel" data-presets="react" src="design-canvas.jsx"></script>
+<script type="text/babel" data-presets="react" src="shared.jsx"></script>
+<script type="text/babel" data-presets="react" src="auth-screens.jsx"></script>
+<script type="text/babel" data-presets="react" src="onboarding-screens.jsx"></script>
+
+<div id="root"></div>
+
+<script type="text/babel" data-presets="react">
+function App(){
+  return (
+    <DesignCanvas title="AutoMate · Auth & Onboarding">
+      <DCSection id="auth" title="Authentication">
+        <DCArtboard id="splash"   label="01 · Splash"             width={402} height={874}><Splash/></DCArtboard>
+        <DCArtboard id="welcome"  label="02 · Welcome carousel"   width={402} height={874}><Welcome initialPage={0}/></DCArtboard>
+        <DCArtboard id="signup"   label="03 · Sign Up"            width={402} height={874}><Register/></DCArtboard>
+        <DCArtboard id="login"    label="04 · Sign In"            width={402} height={874}><Login/></DCArtboard>
+        <DCArtboard id="forgot"   label="05 · Forgot password"    width={402} height={874}><ForgotPassword/></DCArtboard>
+        <DCArtboard id="verify"   label="06 · Verify email"       width={402} height={874}><VerifyEmail/></DCArtboard>
+      </DCSection>
+      <DCSection id="onboard" title="Onboarding · Add your first car">
+        <DCArtboard id="garage"   label="07 · You're in"          width={402} height={874}><GarageWelcome/></DCArtboard>
+        <DCArtboard id="vehicle"  label="08 · Vehicle details"    width={402} height={874}><AddCarVehicle/></DCArtboard>
+        <DCArtboard id="tracking" label="09 · Tracking mode"      width={402} height={874}><AddCarTracking/></DCArtboard>
+        <DCArtboard id="baseline" label="10 · Baseline service"   width={402} height={874}><AddCarBaseline/></DCArtboard>
+        <DCArtboard id="allset"   label="11 · All set"            width={402} height={874}><AllSet/></DCArtboard>
+      </DCSection>
+    </DesignCanvas>
+  );
+}
+ReactDOM.createRoot(document.getElementById('root')).render(<App/>);
+</script>
+
+</body>
+</html>

@@ -168,6 +168,7 @@ export type Database = {
           color: string;
           default_interval_days: number | null;
           default_interval_km: number | null;
+          icon: string;
           id: string;
           is_default: boolean;
           name: string;
@@ -178,6 +179,7 @@ export type Database = {
           color: string;
           default_interval_days?: number | null;
           default_interval_km?: number | null;
+          icon?: string;
           id: string;
           is_default?: boolean;
           name: string;
@@ -188,6 +190,7 @@ export type Database = {
           color?: string;
           default_interval_days?: number | null;
           default_interval_km?: number | null;
+          icon?: string;
           id?: string;
           is_default?: boolean;
           name?: string;

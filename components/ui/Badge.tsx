@@ -8,18 +8,18 @@ interface BadgeProps {
 }
 
 const variantStyles: Record<BadgeVariant, { container: string; text: string }> = {
-  success: { container: 'bg-green-900/50', text: 'text-green-400' },
-  warning: { container: 'bg-amber-900/50', text: 'text-amber-400' },
-  danger: { container: 'bg-red-900/50', text: 'text-red-400' },
-  info: { container: 'bg-blue-900/50', text: 'text-blue-400' },
-  neutral: { container: 'bg-slate-700', text: 'text-slate-300' },
+  success: { container: 'bg-success-20', text: 'text-success' },
+  warning: { container: 'bg-warn-20',    text: 'text-warn' },
+  danger:  { container: 'bg-danger-20',  text: 'text-danger' },
+  info:    { container: 'bg-brand-20',   text: 'text-brand' },
+  neutral: { container: 'bg-surface-4',  text: 'text-fg-2' },
 };
 
 export function Badge({ label, variant = 'neutral' }: BadgeProps) {
   const { container, text } = variantStyles[variant];
   return (
-    <View className={`px-2.5 py-0.5 rounded-full self-start ${container}`}>
-      <Text className={`text-xs font-medium ${text}`}>{label}</Text>
+    <View className={`px-3 py-1 rounded-pill self-start ${container}`}>
+      <Text className={`text-xs font-medium font-sans ${text}`}>{label}</Text>
     </View>
   );
 }
